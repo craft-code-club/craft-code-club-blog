@@ -1,0 +1,40 @@
+@import "../shared/mixins";
+
+.wrapper {
+  width: 100%;
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    padding: 4px;
+
+    div:first-child {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      height: 100%;
+      position: relative;
+
+      img {
+        margin-top: -8px;
+        height: 100%;
+      }
+
+      span {
+        @include breakpoint(){
+          display: none;
+        }
+      }
+    }
+
+    div:nth-child(2) {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}
+
