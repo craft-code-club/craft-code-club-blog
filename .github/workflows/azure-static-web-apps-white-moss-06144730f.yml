@@ -57,7 +57,7 @@ jobs:
           skip_app_build: true
           skip_api_build: true
   deploy_prod:
-    needs: build_and_test
+    needs: deploy_dev
     environment: PROD
     name: Deploy PROD
     runs-on: ubuntu-latest
