@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Publish Test
-        run: sed -n '/<table class="coverage-summary">/,/<\/table>/p' ./coverage/lcov-report/index.html
+        run: sed -n '/<table class="coverage-summary">/,/<\/table>/p' ./coverage/lcov-report/index.html >> $GITHUB_STEP_SUMMARY
       - uses: actions/upload-artifact@v4
         with:
           name: build-output-to-deploy
