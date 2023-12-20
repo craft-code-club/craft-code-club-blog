@@ -11,7 +11,24 @@ jobs:
     uses: ./.github/workflows/template-test-build-and-publish-artifact.yml
     with:
       artifact-name: build-output-to-deploy
-      
+
+  build_storybook:
+    needs: build_and_test
+    name: Build Storybook
+    uses: ./.github/workflows/template-build-storybook.yml
+    with:
+      artifact-name: build-storybook-static-output
+
+  publish_storybook:
+    name: Publish Storybook
+    needs: build_storybook
+    uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
+    with:
+      environment: Storybook
+      webapp-environment: Storybook
+      artifact-name: build-storybook-static-output
+    secrets: inherit
+
   deploy_dev:
     name: Deploy CI
     needs: build_and_test
