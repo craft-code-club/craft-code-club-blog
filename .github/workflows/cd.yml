@@ -35,6 +35,7 @@ jobs:
           deployment_environment: Development
           skip_app_build: true
           skip_api_build: true
+          
   deploy_prod:
     needs: deploy_dev
     environment: PROD
