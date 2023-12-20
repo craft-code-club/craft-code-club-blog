@@ -1,9 +1,10 @@
-name: Azure Static Web Apps CI/CD
+name: Deploy to Azure Static Web Apps
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build_and_test:
@@ -42,6 +43,7 @@ jobs:
   deploy_prod:
     name: Deploy Prod
     needs: deploy_dev
+    if: github.event_name != 'workflow_dispatch' # Don't deploy to Prod for manual runs
     uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
     with:
       environment: Production
