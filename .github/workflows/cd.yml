@@ -26,6 +26,5 @@ jobs:
     needs: deploy_dev
     uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
     with:
-      environment: Production
       artifact-name: build-output-to-deploy
     secrets: inherit
