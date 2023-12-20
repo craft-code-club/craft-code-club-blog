@@ -1,6 +1,4 @@
-To Setup
 
-|-----|-----|
 |Environment|Link|
 |-----|-----|
 |Production|https://www.craftcodeclub.dev|
