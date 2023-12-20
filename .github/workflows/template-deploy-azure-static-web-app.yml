@@ -1,4 +1,4 @@
-name: Test, Build and Publish Artifact
+name: Deploy ARtifacts
 
 on:
   workflow_call:
