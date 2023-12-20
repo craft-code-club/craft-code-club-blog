@@ -43,7 +43,7 @@ jobs:
   deploy_prod:
     name: Deploy Prod
     needs: deploy_dev
-    if: github.event_name != 'workflow_dispatch' # Don't deploy to Prod for manual runs
+    if: github.ref == 'refs/heads/main'    
     uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
     with:
       environment: Production
