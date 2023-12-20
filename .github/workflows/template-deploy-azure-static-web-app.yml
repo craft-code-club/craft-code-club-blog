@@ -1,0 +1,39 @@
+name: Deploy Artifacts
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      webapp-environment:
+        required: false
+        type: string
+      artifact-name:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    name: Deploy ${{ inputs.environment }}
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: ./
+      - name: Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.DEPLOY_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "/"
+          api_location: ""
+          output_location: "./"
+          is_static_export: true
+          deployment_environment: ${{ inputs.webapp-environment }}
+          skip_app_build: true
+          skip_api_build: true

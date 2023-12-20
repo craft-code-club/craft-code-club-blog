@@ -1,0 +1,51 @@
+name: Deploy to Azure Static Web Apps
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build_and_test:
+    name: Build and Test
+    uses: ./.github/workflows/template-test-build-and-publish-artifact.yml
+    with:
+      artifact-name: build-output-to-deploy
+
+  build_storybook:
+    needs: build_and_test
+    name: Build Storybook
+    uses: ./.github/workflows/template-build-storybook.yml
+    with:
+      artifact-name: build-storybook-static-output
+
+  publish_storybook:
+    name: Publish Storybook
+    needs: build_storybook
+    uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
+    with:
+      environment: Storybook
+      webapp-environment: Storybook
+      artifact-name: build-storybook-static-output
+    secrets: inherit
+
+  deploy_dev:
+    name: Deploy CI
+    needs: build_and_test
+    uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
+    with:
+      environment: Development
+      webapp-environment: Development
+      artifact-name: build-output-to-deploy
+    secrets: inherit
+          
+  deploy_prod:
+    name: Deploy Prod
+    needs: deploy_dev
+    if: github.ref == 'refs/heads/main'    
+    uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
+    with:
+      environment: Production
+      artifact-name: build-output-to-deploy
+    secrets: inherit
