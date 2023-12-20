@@ -18,6 +18,7 @@ jobs:
     with:
       environment: CI
       artifact-name: build-output-to-deploy
+    secrets: inherit
           
   deploy_prod:
     needs: deploy_dev
