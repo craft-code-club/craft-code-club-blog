@@ -4,6 +4,9 @@ on:
   workflow_call:
     inputs:
       environment:
+        required: true
+        type: string
+      webapp-environment:
         required: false
         type: string
       artifact-name:
@@ -13,6 +16,7 @@ on:
 jobs:
   deploy:
     name: Deploy ${{ inputs.environment }}
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -30,6 +34,6 @@ jobs:
           api_location: ""
           output_location: "./"
           is_static_export: true
-          deployment_environment: ${{ inputs.environment }}
+          deployment_environment: ${{ inputs.webapp-environment }}
           skip_app_build: true
           skip_api_build: true
