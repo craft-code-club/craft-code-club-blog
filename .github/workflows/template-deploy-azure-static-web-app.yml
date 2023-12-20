@@ -12,7 +12,6 @@ on:
 
 jobs:
   deploy:
-    environment: ${{ inputs.environment }}
     name: Deploy ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
