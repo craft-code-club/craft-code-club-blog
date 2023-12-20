@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_and_test:
-    uses: ./.github/workflows/reusables/test-build-and-publish-artifact.yml
+    uses: ./.github/workflows/template-test-build-and-publish-artifact.yml
     with:
       artifact-name: build-output-to-deploy
       
