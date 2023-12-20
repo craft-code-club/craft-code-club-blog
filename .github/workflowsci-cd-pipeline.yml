@@ -11,29 +11,10 @@ on:
 
 jobs:
   build_and_test:
-    runs-on: ubuntu-latest
-    name: Build and Test
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
-          lfs: false
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20' # or other LTS version
-      - name: Install
-        run: npm install
-      - name: Test
-        run: npm run test
-      - name: Build
-        run: npm run build
-      - name: Publish Test
-        run: sed -n '/<table class="coverage-summary">/,/<\/table>/p' ./coverage/lcov-report/index.html >> $GITHUB_STEP_SUMMARY
-      - uses: actions/upload-artifact@v4
-        with:
-          name: build-output-to-deploy
-          path: ./out
+    uses: ./.github/workflows/reusables/test-build-and-publish-artifact.yml
+    with:
+      artifact-name: build-output-to-deploy
+      
   deploy_dev:
     needs: build_and_test
     environment: CI
