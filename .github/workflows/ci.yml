@@ -1,0 +1,14 @@
+name: Azure Static Web Apps CI/CD
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+jobs:
+  build_and_test:
+    name: Build and Test
+    uses: ./.github/workflows/template-test-build-and-publish-artifact.yml
+    with:
+      artifact-name: build-output
