@@ -13,6 +13,7 @@ jobs:
       artifact-name: build-output-to-deploy
       
   deploy_dev:
+    name: Deploy CI
     needs: build_and_test
     uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
     with:
