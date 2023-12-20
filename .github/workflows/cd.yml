@@ -17,31 +17,15 @@ jobs:
     needs: build_and_test
     uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
     with:
-      environment: CI
+      environment: Development
       artifact-name: build-output-to-deploy
     secrets: inherit
           
   deploy_prod:
-    needs: deploy_dev
-    environment: PROD
-    name: Deploy PROD
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v4
-        with:
-          name: build-output-to-deploy
-          path: ./
-      - name: Deploy
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WHITE_MOSS_06144730F }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
-          app_location: "/"
-          api_location: ""
-          output_location: "./"
-          skip_app_build: true
-          skip_api_build: true
-    
-    
+    name: Deploy Prod
+    needs: build_and_test
+    uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
+    with:
+      environment: Production
+      artifact-name: build-output-to-deploy
+    secrets: inherit
