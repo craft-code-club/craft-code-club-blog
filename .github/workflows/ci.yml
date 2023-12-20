@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_and_test:
-    name: Build and Test
+    name: Build (CI)
     uses: ./.github/workflows/template-test-build-and-publish-artifact.yml
     with:
       artifact-name: build-output
