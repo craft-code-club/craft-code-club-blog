@@ -23,7 +23,7 @@ jobs:
           
   deploy_prod:
     name: Deploy Prod
-    needs: build_and_test
+    needs: deploy_dev
     uses: ./.github/workflows/template-deploy-azure-static-web-app.yml
     with:
       environment: Production
