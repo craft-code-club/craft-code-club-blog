@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20' # or other LTS version
+          cache: 'npm'
       - name: Install
         run: npm install
       - name: Test
