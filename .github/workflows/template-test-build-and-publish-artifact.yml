@@ -12,10 +12,11 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
+          cache: 'npm'
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
